@@ -40,6 +40,9 @@ public class DiaryAddActivity extends AppCompatActivity {
     EditText memo;
     ImageView img;
 
+    int targetW;
+    int targetH;
+
     private static final int CALL_GALLERY = 0;
 
     private String mCurrentPhotoPath;
@@ -73,8 +76,6 @@ public class DiaryAddActivity extends AppCompatActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_add:
-                dispatchTakePictureIntent();
-
                 Log.d("mCurrentPath", mCurrentPhotoPath);
                 SQLiteDatabase db = helper.getWritableDatabase();
                 ContentValues row = new ContentValues();
@@ -91,11 +92,12 @@ public class DiaryAddActivity extends AppCompatActivity {
                 break;
             case R.id.btn_pic:
                 Log.d("add", "add");
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                Log.d("add", String.valueOf(takePictureIntent.resolveActivity(getPackageManager())));
-                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(takePictureIntent, REQUEST_TAKE_THUMBNAIL);
-                }
+//                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                Log.d("add", String.valueOf(takePictureIntent.resolveActivity(getPackageManager())));
+//                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//                    startActivityForResult(takePictureIntent, REQUEST_TAKE_THUMBNAIL);
+//                }
+                dispatchTakePictureIntent();
                 break;
             case R.id.add_cancel:
                 finish();
@@ -150,8 +152,8 @@ public class DiaryAddActivity extends AppCompatActivity {
     /*사진의 크기를 ImageView에서 표시할 수 있는 크기로 변경*/
     private void setPic() {
         // Get the dimensions of the View
-        int targetW = img.getWidth();
-        int targetH = img.getHeight();
+        targetW = img.getWidth();
+        targetH = img.getHeight();
 
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();

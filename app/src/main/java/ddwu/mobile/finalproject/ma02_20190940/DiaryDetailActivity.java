@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,6 +48,9 @@ public class DiaryDetailActivity extends AppCompatActivity {
         date.setText(cursor.getString(cursor.getColumnIndex(DiaryDBHelper.COL_DATE)));
         title.setText(cursor.getString(cursor.getColumnIndex(DiaryDBHelper.COL_TITLE)));
         memo.setText(cursor.getString(cursor.getColumnIndex(DiaryDBHelper.COL_MEMO)));
+        //Bitmap bitmap = BitmapFactory.decodeFile(cursor.getString(cursor.getColumnIndex(DiaryDBHelper.COL_PATH)));
+        //Log.d("detail", cursor.getString(cursor.getColumnIndex(DiaryDBHelper.COL_PATH)));
+        //img.setImageBitmap(bitmap);
         setPic(cursor.getString(cursor.getColumnIndex(DiaryDBHelper.COL_PATH)));
 
         helper.close();
@@ -78,13 +82,14 @@ public class DiaryDetailActivity extends AppCompatActivity {
 
     private void setPic(String mCurrentPhotoPath) {
         // Get the dimensions of the View
-        int targetW = img.getWidth();
-        int targetH = img.getHeight();
+        int targetW = 350;
+        int targetH = 350;
 
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        Bitmap b = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+
         int photoW = bmOptions.outWidth;
         int photoH = bmOptions.outHeight;
 
