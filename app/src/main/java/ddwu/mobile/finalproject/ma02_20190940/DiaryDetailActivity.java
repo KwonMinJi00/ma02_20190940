@@ -24,6 +24,8 @@ public class DiaryDetailActivity extends AppCompatActivity {
     DiaryDBHelper helper;
     Cursor cursor;
 
+    String path;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +53,8 @@ public class DiaryDetailActivity extends AppCompatActivity {
         //Bitmap bitmap = BitmapFactory.decodeFile(cursor.getString(cursor.getColumnIndex(DiaryDBHelper.COL_PATH)));
         //Log.d("detail", cursor.getString(cursor.getColumnIndex(DiaryDBHelper.COL_PATH)));
         //img.setImageBitmap(bitmap);
-        setPic(cursor.getString(cursor.getColumnIndex(DiaryDBHelper.COL_PATH)));
+        path = cursor.getString(cursor.getColumnIndex(DiaryDBHelper.COL_PATH));
+        setPic(path);
 
         helper.close();
     }
@@ -68,6 +71,7 @@ public class DiaryDetailActivity extends AppCompatActivity {
                 intent.putExtra("memo", memo.getText().toString());
                 intent.putExtra("pic", img.getResources().toString());
                 intent.putExtra("id", getIntent().getStringExtra("id"));
+                intent.putExtra("path", path);
                 startActivity(intent);
                 break;
         }

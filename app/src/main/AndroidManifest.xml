@@ -7,6 +7,9 @@
         </intent>
 
     </queries>
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -14,7 +17,7 @@
     <uses-feature android:name="android.hardware.camera"
         android:required="true" />
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
@@ -23,6 +26,9 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.Ma02_20190940"
         >
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/api_key" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="ddwu.mobile.finalproject.fileprovider"
@@ -46,9 +52,9 @@
         <activity android:name=".DiaryDetailActivity" />
         <activity android:name=".DiaryAddActivity" />
         <activity android:name=".MyPlantListActivity" />
-        <activity android:name=".MapActivity" />
         <activity android:name=".PNSearchActivity"/>
         <activity android:name=".DiaryUpdateActivity" />
+        <activity android:name=".GooglePlaceActivity"/>
 
     </application>
 

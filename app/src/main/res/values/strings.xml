@@ -2,4 +2,8 @@
     <string name="app_name">ma02_20190940</string>
     <string name="gardenListUrl">http://api.nongsaro.go.kr/service/garden/gardenList/?apiKey=20211115IFLLOCCCGM6KI7PTSLGUGQ&amp;numOfRows=217</string>
     <string name="gardenDetailUrl">http://api.nongsaro.go.kr/service/garden/gardenDtl/?apiKey=20211115IFLLOCCCGM6KI7PTSLGUGQ</string>
+    <string name="api_key">AIzaSyBexEPL_uYWS8sLjnEkcbRDplrCZcpZ9G0</string>
+    <string name="keyword_hint">내 주변 화원찾기</string>
+    <string name="init_lat">37.604094</string>
+    <string name="init_lng">127.042463</string>
 </resources>

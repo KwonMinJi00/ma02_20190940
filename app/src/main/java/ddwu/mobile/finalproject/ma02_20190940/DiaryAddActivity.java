@@ -43,11 +43,7 @@ public class DiaryAddActivity extends AppCompatActivity {
     int targetW;
     int targetH;
 
-    private static final int CALL_GALLERY = 0;
-
     private String mCurrentPhotoPath;
-    private String mPath;
-    private String mFileName;
 
     private final static int REQUEST_TAKE_THUMBNAIL = 100;
     private static final int REQUEST_TAKE_PHOTO = 200;
@@ -92,11 +88,6 @@ public class DiaryAddActivity extends AppCompatActivity {
                 break;
             case R.id.btn_pic:
                 Log.d("add", "add");
-//                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                Log.d("add", String.valueOf(takePictureIntent.resolveActivity(getPackageManager())));
-//                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-//                    startActivityForResult(takePictureIntent, REQUEST_TAKE_THUMBNAIL);
-//                }
                 dispatchTakePictureIntent();
                 break;
             case R.id.add_cancel:
@@ -104,26 +95,6 @@ public class DiaryAddActivity extends AppCompatActivity {
                 break;
         }
     }
-
-//    private static final int REQUEST_EXTERNAL_STORAGE = 1;
-//    private static String[] PERMISSIONS_STORAGE = {
-//            Manifest.permission.READ_EXTERNAL_STORAGE,
-//            Manifest.permission.WRITE_EXTERNAL_STORAGE
-//    };
-//
-//    public static void verifyStoragePermissions(Activity activity) {
-//        // Check if we have write permission
-//        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-//
-//        if (permission != PackageManager.PERMISSION_GRANTED) {
-//            // We don't have permission so prompt the user
-//            ActivityCompat.requestPermissions(
-//                    activity,
-//                    PERMISSIONS_STORAGE,
-//                    REQUEST_EXTERNAL_STORAGE
-//            );
-//        }
-//    }
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -149,46 +120,36 @@ public class DiaryAddActivity extends AppCompatActivity {
     }
 
 
-    /*사진의 크기를 ImageView에서 표시할 수 있는 크기로 변경*/
     private void setPic() {
-        // Get the dimensions of the View
         targetW = img.getWidth();
         targetH = img.getHeight();
 
-        // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         bmOptions.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
         int photoW = bmOptions.outWidth;
         int photoH = bmOptions.outHeight;
 
-        // Determine how much to scale down the image
         int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
 
-        // Decode the image file into a Bitmap sized to fill the View
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
-//        bmOptions.inPurgeable = true;
 
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
         img.setImageBitmap(bitmap);
     }
 
 
-
-    /*현재 시간 정보를 사용하여 파일 정보 생성*/
     private File createImageFile() throws IOException {
-        // Create an image file name
+
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
+                imageFileName,
+                ".jpg",
+                storageDir
         );
-
-        // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }

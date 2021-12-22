@@ -41,6 +41,11 @@ public class NetworkManager {
         InputStream stream = null;
         String result = null;
 
+        if (!isOnline()) {
+            Log.d(TAG, "온라인이 아님");
+            return null;
+        }
+
         try {
             URL url = new URL(address);
             conn = (HttpURLConnection)url.openConnection();

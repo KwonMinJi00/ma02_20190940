@@ -110,7 +110,8 @@ public class RegisterActivity extends AppCompatActivity {
 //                startActivityForResult(pic_intent, CALL_GALLERY);
 //                break;
             case R.id.btn_register:
-                searchActivity.finish();
+                if (searchActivity != null)
+                 searchActivity.finish();
                 SQLiteDatabase db = plantDBHelper.getWritableDatabase();
                 ContentValues row = new ContentValues();
 

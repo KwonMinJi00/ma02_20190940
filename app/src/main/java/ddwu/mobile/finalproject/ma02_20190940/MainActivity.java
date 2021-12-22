@@ -27,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.search:
-                intent = new Intent(MainActivity.this, MapActivity.class);
+                intent = new Intent(MainActivity.this, GooglePlaceActivity.class);
+                startActivity(intent);
                 break;
         }
     }
