@@ -49,7 +49,7 @@ public class MyCursorAdapter extends CursorAdapter {
         }
 
         holder.plantName.setText(cursor.getString(cursor.getColumnIndex(PlantDBHelper.COL_NAME)));
-        holder.plantCover.setImageResource(R.drawable.ic_launcher_foreground);
+        holder.plantCover.setImageResource(R.drawable.profile);
     }
 
     static class ViewHolder {

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -62,6 +63,16 @@ public class DiaryDetailActivity extends AppCompatActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_fin:
+                finish();
+                break;
+            case R.id.btn_delete:
+                SQLiteDatabase db = helper.getWritableDatabase();
+                String whereClause = "date=?";
+                String[] whereArgs = new String[]{date.getText().toString()};
+                if (db.delete (DiaryDBHelper.TABLE_NAME, whereClause, whereArgs) > 0)
+                    Toast.makeText(DiaryDetailActivity.this, "삭제 완료", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(DiaryDetailActivity.this, "삭제 실패", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
             case R.id.btn_update:

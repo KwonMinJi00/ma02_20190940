@@ -28,6 +28,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:backgroundTint="#3F51B5"
+                android:fontFamily="@font/gmarketsans_ttf_bold"
                 android:onClick="onClick"
                 android:text="등록하기"
                 android:textStyle="bold"
@@ -43,6 +44,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:backgroundTint="#3F51B5"
+                android:fontFamily="@font/gmarketsans_ttf_bold"
                 android:onClick="onClick"
                 android:text="취소하기"
                 android:textStyle="bold"
@@ -55,6 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/gmarketsans_ttf_bold"
                 android:text="새로운 식물 등록"
                 android:textColor="#3F51B5"
                 android:textSize="20sp"
@@ -69,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
+                android:fontFamily="@font/gmarketsans_ttf_medium"
                 android:text="식물명:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -79,6 +83,7 @@
                 android:layout_height="42dp"
                 android:layout_marginStart="16dp"
                 android:ems="10"
+                android:fontFamily="@font/gmarketsans_ttf_medium"
                 android:hint="식물 이름으로 검색해보세요"
                 android:inputType="textPersonName"
                 android:textSize="16sp"
@@ -91,6 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
+                android:fontFamily="@font/gmarketsans_ttf_medium"
                 android:text="특징:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -102,6 +108,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:ems="10"
+                android:fontFamily="@font/gmarketsans_ttf_medium"
                 android:hint="식물의 특징을 작성해주세요."
                 android:inputType="textMultiLine"
                 android:singleLine="false"
@@ -117,6 +124,7 @@
                 android:layout_marginTop="56dp"
                 android:layout_marginEnd="16dp"
                 android:backgroundTint="#3F51B5"
+                android:fontFamily="@font/gmarketsans_ttf_bold"
                 android:onClick="onClick"
                 android:text="검색"
                 android:textStyle="bold"
@@ -129,6 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
+                android:fontFamily="@font/gmarketsans_ttf_medium"
                 android:text="물 주기 봄:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/character" />
@@ -140,6 +149,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:ems="10"
+                android:fontFamily="@font/gmarketsans_ttf_medium"
                 android:hint="물 주기를 작성해주세요."
                 android:inputType="textMultiLine"
                 android:singleLine="false"
@@ -154,6 +164,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
+                android:fontFamily="@font/gmarketsans_ttf_medium"
                 android:text="물 주기 여름:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edit_wsp" />
@@ -165,6 +176,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:ems="10"
+                android:fontFamily="@font/gmarketsans_ttf_medium"
                 android:hint="물 주기를 작성해주세요."
                 android:inputType="textMultiLine"
                 android:singleLine="false"
@@ -172,12 +184,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/wsu" />
+
             <TextView
                 android:id="@+id/wa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
+                android:fontFamily="@font/gmarketsans_ttf_medium"
                 android:text="물 주기 가을:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edit_wsu" />
@@ -189,6 +203,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:ems="10"
+                android:fontFamily="@font/gmarketsans_ttf_medium"
                 android:hint="물 주기를 작성해주세요."
                 android:inputType="textMultiLine"
                 android:singleLine="false"
@@ -196,12 +211,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/wa" />
+
             <TextView
                 android:id="@+id/ww"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
+                android:fontFamily="@font/gmarketsans_ttf_medium"
                 android:text="물 주기 겨울:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edit_wa" />
@@ -213,6 +230,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:ems="10"
+                android:fontFamily="@font/gmarketsans_ttf_medium"
                 android:hint="물 주기를 작성해주세요."
                 android:inputType="textMultiLine"
                 android:singleLine="false"
@@ -227,6 +245,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/gmarketsans_ttf_medium"
                 android:text="검색 결과가 없다면 직접 작성해주세요."
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/plantName" />

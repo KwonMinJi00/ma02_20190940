@@ -1,23 +1,32 @@
 package ddwu.mobile.finalproject.ma02_20190940;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -51,20 +60,33 @@ public class GooglePlaceActivity extends AppCompatActivity implements OnMapReady
 
     private GoogleMap mGoogleMap;
     private MarkerOptions markerOptions;
+    private LocationManager locationManager;
 
     private PlacesClient placesClient;
+
+    Location location = null;
+    LatLng currentLoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.google_place);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (checkPermission())
+            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (location == null) {
+            currentLoc = new LatLng(37.604094, 127.042463);
+        } else {
+            currentLoc = new LatLng(location.getLatitude(), location.getLongitude());
+        }
 
         mapLoad();
 
         Places.initialize(getApplicationContext(), getResources().getString(R.string.api_key));
         placesClient = Places.createClient(this);
-    }
 
+    }
 
     public void onClick(View v) {
         switch (v.getId()) {
@@ -74,20 +96,18 @@ public class GooglePlaceActivity extends AppCompatActivity implements OnMapReady
 //                } else if (etKeyword.getText().toString().equals("restaurant")) {
 //                    searchStart(PlaceType.RESTAURANT);
 //                }
-                searchStart(PlaceType.FLORIST);
-
+                searchStart(PlaceType.FLORIST, currentLoc);
                 break;
         }
     }
 
 
     /*입력된 유형의 주변 정보를 검색*/
-    private void searchStart(String type) {
+    private void searchStart(String type, LatLng latLng) {
         new NRPlaces.Builder().listener(placesListener)
                 .key(getResources().getString(R.string.api_key))
-                .latlng(Double.valueOf(getResources().getString(R.string.init_lat)),
-                        Double.valueOf(getResources().getString(R.string.init_lng)))
-                .radius(500)
+                .latlng(latLng.latitude, latLng.longitude)
+                .radius(2000)
                 .type(type)
                 .build()
                 .execute();
@@ -106,13 +126,29 @@ public class GooglePlaceActivity extends AppCompatActivity implements OnMapReady
                     @Override
                     public void onSuccess(FetchPlaceResponse response) {
                         Place place = response.getPlace();
-                        AlertDialog.Builder builder = new AlertDialog.Builder(GooglePlaceActivity.this);
 
                         String detail = "상호명: " + place.getName();
-                        detail += "\n전화번호: " + place.getPhoneNumber();
-                        detail += "\n주소: " + place.getAddress();
+                        detail += "\n\n전화번호: " + place.getPhoneNumber();
+                        detail += "\n\n주소: " + place.getAddress();
 
-                        builder.setTitle("상세정보")
+                        AlertDialog.Builder oDialog = new AlertDialog.Builder(GooglePlaceActivity.this, R.style.MyAlertDialogStyle);
+
+                        Typeface tf = null;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                            tf = getResources().getFont(R.font.gmarketsans_ttf_medium);
+                        }
+
+                        TextView title = new TextView(GooglePlaceActivity.this);
+                        title.setText("상세 정보");
+                        title.setWidth(0);
+                        title.setHeight(150);
+                        title.setGravity(Gravity.CENTER);
+                        title.setTextColor(Color.WHITE);
+                        title.setTextSize(20);
+                        title.setTypeface(tf);
+                        title.setBackgroundColor(Color.rgb(63, 81, 181));
+
+                        oDialog.setCustomTitle(title)
                                 .setMessage(detail)
                                 .setPositiveButton("확인", null)
                                 .show();
@@ -126,7 +162,7 @@ public class GooglePlaceActivity extends AppCompatActivity implements OnMapReady
                             ApiException apiException = (ApiException) e;
                             int statusCode = apiException.getStatusCode();
                             Log.e(TAG, "Place not found: " + statusCode + " " + e.getMessage());
-                            Toast.makeText(GooglePlaceActivity.this, "반경 500미터 이내 화원을 찾지 못 했습니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(GooglePlaceActivity.this, "반경 2km 이내 화원을 찾지 못 했습니다.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -184,7 +220,7 @@ public class GooglePlaceActivity extends AppCompatActivity implements OnMapReady
         mGoogleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
             @Override
             public boolean onMyLocationButtonClick() {
-                Toast.makeText(GooglePlaceActivity.this, "Clicked!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GooglePlaceActivity.this, "내 위치 클릭", Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
@@ -212,7 +248,7 @@ public class GooglePlaceActivity extends AppCompatActivity implements OnMapReady
     private void mapLoad() {
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);      // 매배변수 this: MainActivity 가 OnMapReadyCallback 을 구현하므로
+        mapFragment.getMapAsync(GooglePlaceActivity.this);
     }
 
 

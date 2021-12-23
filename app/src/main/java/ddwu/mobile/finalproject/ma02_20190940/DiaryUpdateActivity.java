@@ -87,7 +87,6 @@ public class DiaryUpdateActivity extends AppCompatActivity {
                     Toast.makeText(this, "수정 완료", Toast.LENGTH_SHORT).show();
                 else
                     Toast.makeText(this, "수정 실패", Toast.LENGTH_SHORT).show();
-
                 finish();
                 break;
             case R.id.update_cancel:

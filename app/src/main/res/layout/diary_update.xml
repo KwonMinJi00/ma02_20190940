@@ -24,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/gmarketsans_ttf_bold"
                 android:onClick="onClick"
                 android:text="사진찍기"
                 app:backgroundTint="#3F51B5"
@@ -36,7 +37,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
+                android:fontFamily="@font/gmarketsans_ttf_medium"
                 android:text="날짜"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ttext" />
 
@@ -46,7 +49,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="27dp"
                 android:ems="10"
+                android:fontFamily="@font/gmarketsans_ttf_medium"
                 android:inputType="date"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@+id/textView10"
                 app:layout_constraintTop_toBottomOf="@+id/new_title" />
 
@@ -56,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
+                android:fontFamily="@font/gmarketsans_ttf_medium"
                 android:text="제목"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -70,8 +76,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:ems="10"
+                android:fontFamily="@font/gmarketsans_ttf_medium"
                 android:hint="제목"
                 android:inputType="textPersonName"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@+id/ttext"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,6 +90,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="24dp"
                 android:backgroundTint="#3F51B5"
+                android:fontFamily="@font/gmarketsans_ttf_bold"
                 android:onClick="onClick"
                 android:text="완료"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -94,6 +103,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="24dp"
                 android:backgroundTint="#3F51B5"
+                android:fontFamily="@font/gmarketsans_ttf_bold"
                 android:onClick="onClick"
                 android:text="취소"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -105,7 +115,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="80dp"
+                android:fontFamily="@font/gmarketsans_ttf_medium"
                 android:text="메모"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ttext" />
 
@@ -116,7 +128,9 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:fontFamily="@font/gmarketsans_ttf_medium"
                 android:hint="메모작성"
+                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ttmemo"
                 app:layout_constraintTop_toBottomOf="@+id/textView10" />
@@ -127,14 +141,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/gmarketsans_ttf_medium"
                 android:text="사진"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/new_memo" />
 
             <ImageView
                 android:id="@+id/new_pic"
-                android:layout_width="299dp"
-                android:layout_height="279dp"
+                android:layout_width="250dp"
+                android:layout_height="270dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="80dp"

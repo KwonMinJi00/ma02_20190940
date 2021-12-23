@@ -89,14 +89,15 @@ public class NetworkManager {
 
     /* URLConnection 을 전달받아 연결정보 설정 후 연결, 연결 후 수신한 InputStream 반환 */
     private InputStream getNetworkConnection(HttpURLConnection conn) throws Exception {
-        conn.setReadTimeout(3000);
-        conn.setConnectTimeout(3000);
+        conn.setReadTimeout(5000);
+        conn.setConnectTimeout(5000);
         conn.setRequestMethod("GET");
         conn.setDoInput(true);
 
+
         if (conn.getResponseCode() != HttpsURLConnection.HTTP_OK) {
             throw new IOException("HTTP error code: " + conn.getResponseCode());
-        }
+        } Log.d(TAG, String.valueOf(conn.getResponseCode()));
 
         return conn.getInputStream();
     }

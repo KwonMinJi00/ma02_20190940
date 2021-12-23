@@ -4,12 +4,17 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,14 +38,34 @@ public class MyPlantListActivity extends AppCompatActivity {
             @SuppressLint("Range")
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                SQLiteDatabase db = helper.getReadableDatabase();
-                cursor = db.rawQuery("select p_name from my_plant_table where _id = " + id, null);
-                cursor.moveToNext();
-                String p_name = cursor.getString(cursor.getColumnIndex(PlantDBHelper.COL_NAME));
+                final PopupMenu popupMenu = new PopupMenu(getApplicationContext(),view);
+                getMenuInflater().inflate(R.menu.popup,popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        if (menuItem.getItemId() == R.id.menu1){
+                            SQLiteDatabase db = helper.getReadableDatabase();
+                            cursor = db.rawQuery("select p_name from my_plant_table where _id = " + id, null);
+                            cursor.moveToNext();
+                            String p_name = cursor.getString(cursor.getColumnIndex(PlantDBHelper.COL_NAME));
 
-                Intent intent = new Intent(MyPlantListActivity.this, DiaryActivity.class);
-                intent.putExtra("name", p_name);
-                startActivity(intent);
+                            Intent intent = new Intent(MyPlantListActivity.this, DiaryActivity.class);
+                            intent.putExtra("name", p_name);
+                            startActivity(intent);
+                        }else if (menuItem.getItemId() == R.id.menu2){
+                            SQLiteDatabase db = helper.getWritableDatabase();
+                            String whereClause = "_id=?";
+                            String[] whereArgs = new String[]{String.valueOf(id)};
+                            if (db.delete (PlantDBHelper.TABLE_NAME, whereClause, whereArgs) > 0)
+                                Toast.makeText(MyPlantListActivity.this, "삭제 완료", Toast.LENGTH_SHORT).show();
+                            else
+                                Toast.makeText(MyPlantListActivity.this, "삭제 실패", Toast.LENGTH_SHORT).show();
+                        }
+                        onResume();
+                        return false;
+                    }
+                });
+                popupMenu.show();
             }
         });
 
@@ -52,14 +77,30 @@ public class MyPlantListActivity extends AppCompatActivity {
                 cursor = db.rawQuery("select * from my_plant_table where _id = " + l, null);
                 cursor.moveToNext();
                 String detail = "이름:  " + cursor.getString(cursor.getColumnIndex(PlantDBHelper.COL_NAME));
-                detail += "\n" + cursor.getString(cursor.getColumnIndex(PlantDBHelper.COL_POI));
-                detail += "\n물주기 봄: " + cursor.getString(cursor.getColumnIndex(PlantDBHelper.COL_WSP));
-                detail += "\n물주기 여름: " + cursor.getString(cursor.getColumnIndex(PlantDBHelper.COL_WSU));
-                detail += "\n물주기 가을: " + cursor.getString(cursor.getColumnIndex(PlantDBHelper.COL_WA));
-                detail += "\n물주기 겨울: " + cursor.getString(cursor.getColumnIndex(PlantDBHelper.COL_WW));
+                detail += "\n\n" + cursor.getString(cursor.getColumnIndex(PlantDBHelper.COL_POI));
+                detail += "\n\n물주기 봄: " + cursor.getString(cursor.getColumnIndex(PlantDBHelper.COL_WSP));
+                detail += "\n\n물주기 여름: " + cursor.getString(cursor.getColumnIndex(PlantDBHelper.COL_WSU));
+                detail += "\n\n물주기 가을: " + cursor.getString(cursor.getColumnIndex(PlantDBHelper.COL_WA));
+                detail += "\n\n물주기 겨울: " + cursor.getString(cursor.getColumnIndex(PlantDBHelper.COL_WW));
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(MyPlantListActivity.this);
-                builder.setTitle("식물 상세정보")
+                AlertDialog.Builder oDialog = new AlertDialog.Builder(MyPlantListActivity.this, R.style.MyAlertDialogStyle);
+
+                Typeface tf = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    tf = getResources().getFont(R.font.gmarketsans_ttf_medium);
+                }
+
+                TextView title = new TextView(MyPlantListActivity.this);
+                title.setText("상세 정보");
+                title.setWidth(0);
+                title.setHeight(150);
+                title.setGravity(Gravity.CENTER);
+                title.setTextColor(Color.WHITE);
+                title.setTextSize(20);
+                title.setTypeface(tf);
+                title.setBackgroundColor(Color.rgb(63, 81, 181));
+
+                oDialog.setCustomTitle(title)
                         .setMessage(detail)
                         .setPositiveButton("확인", null)
                         .show();
